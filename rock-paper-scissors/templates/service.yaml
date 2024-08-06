@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "rock-paper-scissors.fullname" . }}
+  labels:
+    {{- include "rock-paper-scissors.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "rock-paper-scissors.selectorLabels" . | nindent 4 }}
